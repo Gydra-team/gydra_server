@@ -1,0 +1,928 @@
+ 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <title>Монитор ресурсов</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<script src="js/jquery.js" type="text/javascript"> </script>
+<script src="js/load.js" type="text/javascript"> </script>
+ <script src="js/highcharts.js"></script>
+<script src="js/modules/exporting.js"></script>
+ 
+<style type="text/css">
+body{
+ 
+
+}
+
+.logo_system{
+width:120px;
+margin-top: 5px;
+
+
+}
+
+
+.green_box_class{ /* глобальный класс сама карточка */
+position:absolute;
+width:630px;
+ 
+background-color: #F9F9F9;
+padding-bottom: 
+}
+
+.green_box_diagrame{ /* глобальный класс сама карточка */
+float:left;
+width:630px;
+display:none;
+
+}
+
+
+.line{
+background-color: #fff;
+height:4px;
+width:150px;
+margin-top:6px;
+margin-bottom: 6px;
+}
+ 
+.head_green_box{ /* зеленая шапка карточки */
+ 
+height:140px; width:100%;
+background-color: #87de87;
+display:inline-block;
+float:left;
+ 
+}
+ 
+ .head_text{ /* простое название на зеленом */
+margin:15px;    
+color: #fff;
+font-size: 26px;
+font-family: Arial, Helvetica, sans-serif;
+ }
+
+.head_text_big{ /* белая подпись на зеленом */
+margin: 40px;
+font-size: 46px;
+font-weight: bold;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+.head_text_big_right{ /* белая подпись на зеленом */
+
+position:absolute;
+right:50px;
+top:0px;
+margin: 20px;
+font-size: 86px;
+ 
+font-family: Arial, Helvetica, sans-serif;
+color:#fff;
+}
+
+.header_small_text{
+color: #fff;
+font-size: 16px;
+font-family: Arial, Helvetica, sans-serif;
+font-style: italic;
+}
+
+
+
+.title{ /* любая крупная надпись главы */
+font-size: 22px;
+color: #666;
+font-family: Arial, Helvetica, sans-serif;
+font-style: bold;
+}
+
+.diagram{ /* параметры бокса с диаграммой */
+
+ 
+display:inline-block;
+float:left; 
+width:600px;
+height:500px;
+margin-bottom: 15px; 
+
+}
+
+
+.analiz_box{ /* весь бокс с анализом работы */
+position: absolute;
+left:15px;
+top:640px; 
+}
+
+.string_tr{ /* строка с надписью формой и кнопкой */
+margin-top:12px;
+display: inline-block;
+ 
+}
+/* */
+.text_work{ /* текст малнький подписи */
+font-size: 16px;
+color: #666;
+font-family: Arial, Helvetica, sans-serif;
+}
+.input_kasper{ /* белые формы с цифрами */
+display:inline-block;
+height:20px;
+font-size: 16px;
+color:#000;
+background-color: #FFFFFF;
+border-radius: 6px;
+border-style: solid;
+border-width: 1px;
+border-color: #E4E4E0;
+padding:2px; 
+padding-left: 7px;padding-right: 7px;
+font-family: Arial, Helvetica, sans-serif;
+margin-left: 5px;
+margin-right: 5px;
+text-align: center;
+}
+.buttom_green{
+font-size: 16px;    
+height:24px;
+background-color: #87de87;
+ 
+padding-left: 7px;padding-right: 7px;
+border-width: 0px;
+color:#fff;
+border-radius: 6px;
+}
+ 
+/* ------------------------------------------------------------------- */
+.statistic_box{
+position: absolute;
+left:15px;
+top:160px; 
+}
+.switch{ /* переключатель */
+height:23px;
+margin-bottom: -6px;
+margin-left: 5px;
+margin-right: 5px;
+}
+ 
+.selected{
+
+height:24px;
+font-size: 16px;
+color:#000;
+background-color: #FFFFFF;
+border-radius: 6px;
+border-style: solid;
+border-width: 1px;
+border-color: #E4E4E0;
+padding-left: 22px;padding-right: 44px;
+font-family: Arial, Helvetica, sans-serif;
+margin-left: 5px;
+margin-right: 5px;
+ 
+background: transparent url("img/switch.png") no-repeat right center;  
+background-color: #fff; 
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+
+ .select_img{ /* белые формы с цифрами */
+ 
+height:22px;
+margin-bottom: -5px;
+margin-left: -35px;
+
+}
+.gray_line{
+display:inline-block;
+float:left;
+margin-left: 15px;
+width:600px;
+height:2px;
+background-color: #DBDCD6;
+
+
+
+
+}
+.statistic_detail_box{
+position:absolute;
+top:330px;
+left:15px;
+}
+
+
+.big_input_kasper{ /* белые формы с цифрами */
+ 
+font-size: 36px;
+color:#000;
+background-color: #FFFFFF;
+border-radius: 6px;
+border-style: solid;
+border-width: 1px;
+border-color: #E4E4E0;
+padding:2px; 
+padding-left: 2px;padding-right: 2px;
+font-family: Arial, Helvetica, sans-serif;
+margin-left: 5px;
+margin-right: 5px;
+margin-bottom: 210px; }
+
+.mini_text{
+
+font-size: 14px;
+font-family: Arial, Helvetica, sans-serif;
+color: #666;
+ 
+}
+.vertical_line{
+display:inline-block;
+ 
+height:50px;
+width:2px;
+background-color: #CCCDC5;
+margin-right: 10px;
+margin-left: 10px;
+
+}
+
+.buttom_green_big{
+font-size: 16px;    
+height:44px;
+background-color: #87de87;
+padding-left: 11px;padding-right: 11px;
+border-width: 0px;
+color:#fff;
+border-radius: 6px;
+margin-left: 10px;
+}
+  .table_sensor td {
+padding-bottom: 15px;
+ 
+   }
+
+ 
+
+.lamp_box{
+width:28px;
+height:28px;
+background-color:#87de87;
+border-style: solid;
+border-width: 1px;
+border-color: #E4E4E0;
+padding-bottom: -10px;
+}
+
+
+  .lamp_table td{
+text-align: center;
+font-size: 12px;
+color:#666;
+font-family: Arial, Helvetica, sans-serif;
+height:10px;
+border: none; /* Убираем линию снизу */
+padding-top: 10px;
+ 
+}
+ 
+
+.nasos_box{
+
+position:absolute;
+top:880px;
+left:15px;
+
+
+} 
+
+
+.specii_box{
+
+display:inline-block;
+float:left;
+margin:15px;
+ 
+}
+
+
+.range_box_class{
+background-color: #F9F9F9;
+border-style: solid;
+z-index: 101;
+visibility: hidden;
+
+}
+
+.video_div{
+width:482px;
+height:300px;
+ 
+}
+
+ 
+</style>
+
+</head>
+<body>
+<script type="text/javascript">
+ 
+ 
+var d = function(x){return document.getElementById(x);}//для меня
+var obj = {};
+obj.ar = new Array(); // глобальный всего что пришло по дачикам
+obj.work_status = 1; //1 работает исправно , 2 неисправна
+
+obj.ar_lamp = [];
+obj.on_off_ar = new Array();
+obj.on_off_ar["lamp_switch"] = 1; // включено
+obj.on_off_ar["nasos_switch"] = 1; // включено 
+obj.on_off_ar["work_switch"] = 1; // включено 
+obj.on_off_ar["hand_switch"] = 1; // включено 
+
+obj.diagram_hide = 0; // 1 скрыта 
+
+
+
+
+for(var i=0; i<=23;i++){obj.ar_lamp["lamp_"+i]=1;} 
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+function main(){//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+console.log("start main");
+facechange ("#video_div");
+load(); // ajax
+
+//unpack(); // распаковка всего содержимого карточки
+
+}//main
+//end main%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+function hand_statistic(){ 
+// статистика по текущей температуре
+// и по другим параметрам
+//graf.ar_t1[i] =  Number(obj.ar[i].t1);
+//graf.ar_ph1[i] =   Number(obj.ar[i].ph1);
+//graf.ar_f1[i] =   Number(obj.ar[i].f1);
+
+d("now_t").innerHTML = graf.ar_t1[graf.ar_t1.length-1]+"С&deg;";
+d("now_f").innerText = graf.ar_f1[graf.ar_f1.length-1]+"%";
+d("now_ph").innerText = graf.ar_ph1[graf.ar_ph1.length-1].toFixed(2);;
+
+
+
+
+}//end function hand_statistic
+
+function on_off(id){
+
+if(obj.on_off_ar[id]==1){ 
+    obj.on_off_ar[id]=0;
+    d(id).src = "img/off.png";
+}else{
+    obj.on_off_ar[id]=1;
+    d(id).src = "img/on.png";
+}//end if
+
+shadow(id);
+} //end on off
+ 
+ 
+
+function lamp_on_off(id){//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+ 
+if(obj.on_off_ar["lamp_switch"]==1){
+ 
+    if(obj.ar_lamp [id] == 1){
+    obj.ar_lamp [id] = 0;
+    d(id).style.backgroundColor = "#fff"; 
+ 
+    }else{
+    obj.ar_lamp [id] = 1;
+    d(id).style.backgroundColor = "#87de87"; 
+
+    }//if
+
+}//if global flag 
+
+
+}//lamp_on_off(this.id)
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+function shadow(id){//*****************************************************
+//LAMPA
+if(id=="lamp_switch"){  
+    if(obj.on_off_ar[id]==0){ // нет
+     
+            $(".lamp_table td" ).css({"color":"#C2C5BA"});
+            for(var i = 0; i<=23; i++){
+            //покрасим квадратики
+            console.log("1ok");
+            if(obj.ar_lamp["lamp_"+i] == 1){d("lamp_"+i).style.backgroundColor = "#C2C5BA"; console.log("ok");} 
+            //покрасим текст
+            }//for
+    }else{//да
+      
+            $(".lamp_table td" ).css({"color":"#666"});
+            for(var i = 0; i<=23; i++){
+            //покрасим квадратики
+            console.log("1ok");
+            if(obj.ar_lamp["lamp_"+i] == 1){d("lamp_"+i).style.backgroundColor = "#87de87"; console.log("ok");} 
+            //покрасим текст
+            }//for
+    }//else end
+
+}//if LAMPA ---------------------------------
+
+//NASOS start
+if(id=="nasos_switch"){  
+    if(obj.on_off_ar[id]==0){ // нет
+d("nasos_t1").style.color = "#C2C5BA";
+d("nasos_t2").style.color = "#C2C5BA";
+d("nasos_t3").style.color = "#C2C5BA";
+d("nasos_t4").style.color = "#C2C5BA";
+d("nasos_b1").style.backgroundColor = "#C2C5BA";
+d("nasos_b2").style.backgroundColor = "#C2C5BA"; 
+
+    }else{// насос работает
+d("nasos_t1").style.color = "#666";
+d("nasos_t2").style.color = "#666";
+d("nasos_t3").style.color = "#666";
+d("nasos_t4").style.color = "#666";
+d("nasos_b1").style.backgroundColor = "#87de87";
+d("nasos_b2").style.backgroundColor = "#87de87";   
+
+
+    }//if obj.on_off_ar
+}//end if nasos
+//NASOS end ---------------------------------
+
+//HAND CONTROL start
+if(id=="hand_switch"){  
+    if(obj.on_off_ar[id]==0){ // нет
+d("temp_1").style.color = "#C2C5BA";
+d("temp_2").style.color = "#C2C5BA"; 
+d("temp_3").style.backgroundColor = "#C2C5BA";
+//>>
+ d("vlaj_1").style.color = "#C2C5BA";
+d("vlaj_2").style.color = "#C2C5BA"; 
+d("vlaj_3").style.backgroundColor = "#C2C5BA";
+//>>
+d("kis_1").style.color = "#C2C5BA";
+d("kis_2").style.color = "#C2C5BA"; 
+d("kis_3").style.backgroundColor = "#C2C5BA";
+
+
+    }else{// насос работает
+   
+d("temp_1").style.color = "#000";
+d("temp_2").style.color = "#666"; 
+d("temp_3").style.backgroundColor = "#87de87";
+//>>
+ d("vlaj_1").style.color = "#000";
+d("vlaj_2").style.color = "#666"; 
+d("vlaj_3").style.backgroundColor = "#87de87";
+//>>
+d("kis_1").style.color = "#000";
+d("kis_2").style.color = "#666"; 
+d("kis_3").style.backgroundColor = "#87de87";
+
+    }//if obj.on_off_ar
+}//end if nasos
+//HAND CONTROL end ---------------------------------
+
+
+
+
+
+if(id=="work_switch"){  
+status_ust(); // проверка и изменение статуса
+}//work_switch
+
+}//end shadow *****************************************************
+
+
+function status_ust(){ //--------------------------------
+if(obj.on_off_ar["work_switch"]==0){ // нет
+        d("status_text").innerHTML = "выключена";
+        d("status_text").style.color = "#D90F0F";
+
+}else{
+    if(obj.work_status==1){
+        d("status_text").innerHTML = "работает исправно";
+        d("status_text").style.color = "#87de87";
+    } 
+    if(obj.work_status==2){
+        d("status_text").innerHTML = "неисправна";
+        d("status_text").style.color = "#D90F0F";
+    }//IF work_status 
+}//if obj.on_off_ar
+
+}//status_ust end ---------------------------------------
+
+
+
+
+ 
+function diagram_hide_open(){ // показать скрыть диаграмму
+
+if(obj.diagram_hide==1){// диаграмма показывается
+
+obj.diagram_hide=0; 
+d("diagram_but").innerText = "показать график";
+d("green_box_2").style.display="none";
+
+}else{
+
+obj.diagram_hide=1; 
+d("diagram_but").innerText = "скрыть график";
+d("green_box_2").style.display="inline-block";
+  var scrolled = window.pageYOffset || document.documentElement.scrollTop;
+window.scrollTo(0, scrolled+400);
+}//if 1
+
+
+}//diagram_hide_open
+
+ 
+ var video_code= '<div class="iv-embed" style="margin:0 auto;padding:0;border:0;width:482px;">';
+video_code+='<div class="iv-v" style="display:block;margin:0;padding:1px;border:0;background:#000;">';
+video_code+='<iframe class="iv-i" style="display:block;margin:0;padding:0;border:0;" src="//open.ivideon.com/embed/v2/?server=100-37ba75ce1347561faff08b70fe876074&amp;camera=65536&amp;width=&amp;height=&amp;lang=ru" width="480" height="270" frameborder="0" allowfullscreen></iframe></div><div class="iv-b" style="display:block;margin:0;padding:0;border:0;">';
+ video_code+='<div style="float:right;text-align:right;padding:0 0 10px;line-height:10px;">';
+ video_code+='<a class="iv-a" style="font:10px Verdana,sans-serif;color:inherit;opacity:.6;" href="http://www.ivideon.com/" target="_blank">powered by Ivideon</a>';
+ video_code+='</div>';
+ video_code+='<div style="clear:both;height:0;overflow:hidden;">&nbsp;</div>';
+video_code+='\<script src=\"\/\/open.ivideon.com\/embed\/v2\/embedded.js"\>\<\/script\>';
+ video_code+='</div>';
+ video_code+='</div>';
+var flag_video = 0;
+function facechange (objName,x) {
+if(flag_video==0&&x==1){  flag_video=1; d("video_content").innerHTML = video_code; 
+}
+
+if ( $(objName).css('display') == 'none' ) {
+$(objName).animate({height: 'show'}, 400);
+} else {
+$(objName).animate({height: 'hide'}, 200);
+}
+};
+
+
+
+
+
+
+/*
+//сортировка по номеру типа types ------------------------------------
+function sort_buble(arr){ // сортировка для отображения в списке и при печати
+ var m = arr;
+ var count = m.length-1;
+for (var i = 0; i < count; i++) 
+     for (var j = 0; j < count-i; j++)
+        if (m[j].types> m[j+1].types) {
+           var max = m[j];
+           m[j] = m[j+1];
+           m[j+1] = max;
+        }
+return m ;
+}
+*/
+
+
+ 
+
+
+
+//---------------------------------------------------------------
+$(document).ready(function () {
+main(); // нормализуем элементы по высоте и ширине
+});
+/*
+$(window).resize(function(){
+});
+*/
+
+$(document).mousemove(function(e){
+    var X = e.pageX; // положения по оси X
+    var Y = e.pageY; // положения по оси Y
+   // console.log("X: " + X + " Y: " + Y); // вывод результата в консоль
+    document.title = "X: " + X + " Y: " + Y;
+});    
+// fly-frog-fly@yandex.ru
+</script>
+ 
+<!--global container -->
+<div id="green_box" class="green_box_class">
+
+<div id="header_green_box" class="head_green_box">
+    <div id="text_heder_green" class="head_text">Установка:
+    <div class="line"></div>
+    <div class="header_small_text">Гидропонная nft</div>
+    <img  src="img/nfc.png" class="logo_system"  alt="">
+    </div><!--header -->
+
+    <span class="head_text_big_right">15</span>    
+</div><!--green box head-->
+
+ 
+
+
+<div   class="specii_box">
+ 
+        <div class="string_tr"><!--статус --> 
+            <span class="text_work">статус:</span>
+            <div id="status_text" class="input_kasper" style="color:#45CB45;  width:150px;">работает исправно</div>
+            <img id="work_switch" src="img/on.png" class="switch" onclick="on_off(this.id)" alt=""><!-- on off-->
+        </div><!-- статус-->
+
+         <div class="string_tr"><!--тип сорта --> 
+        <span class="text_work">выращиваемая культура:</span>
+        <select class="selected" id="sort_type"> 
+        <option>клубника</option>
+        <option>капуста</option>
+        </select>
+        </div><!-- тип сорта --> 
+<br>
+        <div class="string_tr"><!--сорт --> 
+        <span class="text_work">сорт:</span>
+        <select class="selected" id="sort_sort"> 
+        <option>Сан Андреас</option>
+        <option>Альбион</option>
+        <option>Шарлота</option>
+        <option>Фламенко</option>        
+        </select>
+        </div><!-- сорт --> 
+<br>
+        <div class="string_tr"><!--класс сорта --> 
+        <span class="text_work">класс сорта:</span>
+        <select class="selected" id="sort_klass_sorta"> 
+        <option>Normal</option>
+        <option selected>А</option>
+        <option>A+</option>   
+        </select>
+        </div><!-- класс сорта -->         
+
+<br>
+    <div class="string_tr"><!--тип стадии --> 
+    <span class="text_work">стадия роста:</span>
+    <select class="selected" id="sort_type"> 
+     <option >проращивание</option><option>цветение</option>
+     <option>развитие</option><option  selected>плодоношение</option>
+    </select>
+ 
+        </div><!-- тип стадии --> 
+   <br>
+   <div class="string_tr"><!--дата высадки --> 
+    <span class="text_work">дата высадки:</span>
+    <span class="input_kasper"  >29.11.2014</span>
+    <button class="buttom_green">изм.</button>
+    </div><!-- дата высадки  --> 
+
+<br>
+
+<div class="string_tr"><!--кнопка трансляция --> 
+<button class="buttom_green" onclick="facechange('#video_div',1); return false"  id="vid_but">видеотрансляция установки</button>
+</div><!-- кнопка трансляция   --> 
+<br>
+
+<div class="string_tr"><!--видео --> 
+<div id="video_div" class="video_div2"  ><!--видеовdiv -->    
+ <div id="video_content"  class="video_div"><!--видеовdiv -->  
+
+</div>  <!--видеовdiv -->  
+</div>  <!--видеовdiv -->   
+</div><!-- видео  --> 
+
+
+</div> <!--statistic box -->
+
+ 
+
+
+<div class="gray_line"></div>
+ 
+<div   class="specii_box"><!--подробная статистика -->
+       <div class="string_tr"><!--лого статистика--> 
+        <span class="title" style="color:#87de87;">Подробная статистика</span>
+        </div><!--лого статистика--> 
+<br> 
+       <div class="string_tr"><!--выставить параметры--> 
+        <span class="text_work">выставить параметры вручную:</span>
+        <img id="hand_switch" src="img/on.png" class="switch" onclick="on_off(this.id)" alt=""><!-- on off-->
+        </div><!--выставить параметры--> 
+
+<br>
+<br> 
+ 
+<table>
+    <tr class="table_sensor">
+        <td><span id="now_t" class="big_input_kasper"  >21С&deg;</span></td>
+        <td><span class="mini_text">текущая <br> температура <br> помещения</span></td>
+        <td><div class="vertical_line"></div></td>
+        <td><span id="temp_1" class="big_input_kasper"  >23C&deg;</span></td>
+        <td><span id="temp_2" class="mini_text">заданная <br> температура <br> помещения</span></td></td>
+        <td><button id="temp_3" class="buttom_green_big">изм.</button></td>
+    </tr>
+    <tr class="table_sensor">
+        <td><span id="now_f" class="big_input_kasper"  >67%</span></td>
+        <td><span class="mini_text">текущая <br> влажность <br> помещения</span></td>
+        <td><div class="vertical_line"></div></td>
+        <td><span id="vlaj_1" class="big_input_kasper"  >65%</span></td>
+        <td><span id="vlaj_2" class="mini_text">заданная <br> влажность <br> помещения</span></td></td>
+        <td><button id="vlaj_3" class="buttom_green_big">изм.</button></td>
+    </tr>
+    <tr class="table_sensor">
+        <td><span id="now_ph" class="big_input_kasper"  >7.00</span></td>
+        <td><span class="mini_text">текущая <br> кислотность <br> воды</span></td>
+        <td><div class="vertical_line"></div></td>
+        <td><span id="kis_1" class="big_input_kasper"  >8.00</span></td>
+        <td><span id="kis_2" class="mini_text">заданная <br> кислотность <br> воды</span></td></td>
+        <td><button id="kis_3" class="buttom_green_big">изм.</button></td>
+    </tr>
+</table>
+<br>
+
+</div><!--подробная статистика -->
+
+
+
+
+<div   class="specii_box"><!--режим работы ламп %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+    <div class="string_tr"> 
+    <span class="title"  >Режим работы ламп</span>
+    </div> 
+
+<br>
+    <div class="string_tr"> 
+    <span class="text_work">выставить параметры вручную:</span>
+    <img id="lamp_switch" src="img/on.png" class="switch" onclick="on_off(this.id) " alt=""><!-- on off-->
+    </div> 
+
+<br><br>
+<table class="string_tr"> 
+    <tr class="lamp_table">
+        <td>0</td>
+        <td>1</td>
+        <td>2</td>
+        <td>3</td>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>7</td>
+        <td>8</td>
+        <td>9</td>
+        <td>10</td>
+        <td>11</td>
+    </tr>
+    <tr >
+        <td><div id="lamp_0" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_1" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_2" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_3" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_4" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_5" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_6" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_7" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_8" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_9" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_10" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_11" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+    </tr>
+    <tr class="lamp_table">
+        <td>12</td>
+        <td>13</td>
+        <td>14</td>
+        <td>15</td>
+        <td>16</td>
+        <td>17</td>
+        <td>18</td>
+        <td>19</td>
+        <td>20</td>
+        <td>21</td>
+        <td>22</td>
+        <td>23</td>
+    </tr>
+    <tr >
+        <td><div id="lamp_12" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_13" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_14" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_15" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_16" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_17" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_18" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_19" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_20" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_21" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_22" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+        <td><div id="lamp_23" class="lamp_box" onclick="lamp_on_off(this.id)"></div></td>
+    </tr>
+</table>    
+</div><!--режим работы ламп %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+ 
+<div class="specii_box"><!--режим работы насоса %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+    <div class="string_tr"> 
+    <span class="title"  >Режим работы насоса:</span>
+    </div> 
+<br>
+    <div class="string_tr"> <!--выставить on off--> 
+    <span class="text_work">выставить параметры вручную:</span>
+    <img id="nasos_switch" src="img/on.png" class="switch" onclick="on_off(this.id)" alt=""><!-- on off-->
+    </div> <!--выставить on off--> 
+<br>
+    <div class="string_tr" > <!--работа-->
+            <span id="nasos_t1" class="text_work">время работы сек.:</span>
+            <span id="nasos_t2" class="input_kasper">10</span>
+            <button id="nasos_b1" class="buttom_green">изм.</button>
+    </div> <!--работа-->
+<br>
+    <div class="string_tr"> <!--покой-->
+            <span id="nasos_t3" class="text_work">время покоя сек.:</span>
+            <span id="nasos_t4" class="input_kasper">200</span>
+            <button id="nasos_b2" class="buttom_green">изм.</button>
+    </div> <!--покой-->   
+
+</div><!--режим работы насоса %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+
+
+ <div class="specii_box"><!-- Расход удобрений %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+    
+    <div class="string_tr">  
+            <span class="text_work">количество уобрений:</span>
+            <span class="input_kasper" style="color:#87de87;">2032 мг.</span>
+    </div> <!--работа-->
+<br>
+    <div class="string_tr"> 
+            <span class="text_work">расход удобрений в день:</span>
+            <span class="input_kasper">32 мг.</span>
+    </div> <!--покой-->   
+<br>
+    <div class="string_tr">  
+            <span class="text_work">запас воды:</span>
+            <span class="input_kasper" style="color:#87de87;">100%</span>
+    </div>  
+
+
+</div><!--р Расход удобрений%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+<br>
+ <div class="specii_box"><!--показать график %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+
+<span class="text_work">график работы системы:</span>
+<button id="diagram_but" class="buttom_green"  onclick="diagram_hide_open()" >показать график</button>
+</div ><!--показать график %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%-->
+
+
+
+<div id="green_box_2" class="green_box_diagrame">
+
+<div id="analiz_work" class="specii_box">
+<div id="container" class="diagram"></div><!--diagram -->    
+    <div class="title">Анализ работы</div>
+        <div class="string_tr"><!--nasos --> 
+            <span class="text_work">насосы выроботка час.:</span>
+            <span class="input_kasper">145</span>
+            <button class="buttom_green">обнулить</button>
+        </div><!--nasos -->
+
+        <div class="string_tr"><!-- лампа --> 
+            <span class="text_work">лампы выроботка час.:</span>
+            <span class="input_kasper">243</span>
+            <button class="buttom_green">обнулить</button>
+        </div><!--лампа -->    
+
+        <div class="string_tr"><!-- вентиляция --> 
+            <span class="text_work">вентиляция выроботка час.:</span>
+            <span class="input_kasper">319</span>
+            <button class="buttom_green">обнулить</button>
+        </div><!--вентиляция -->    
+
+        <div class="string_tr"><!-- отопление --> 
+            <span class="text_work">отопление выроботка час.:</span>
+            <span class="input_kasper">221</span>
+            <button class="buttom_green">обнулить</button>
+        </div><!--отопление --> 
+
+</div> <!--analiz_work -->
+</div><!--green_box 2 -->
+
+ 
+
+<!--global container 2-->
+</div><!--green_box =+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+<div id="range_box" class="range_box_class">
+<input type="range" id="range_x" weight min="10" value="10" max="2000" step="100" onchange="outputUpdate(value)"/>
+</div>
+
+ 
+
+</body>
+</html>
+ 

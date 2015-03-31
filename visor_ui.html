@@ -1,0 +1,371 @@
+ 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <title>Монитор ресурсов</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<script src="js/jquery.js" type="text/javascript"> </script>
+ <script src="js/highcharts.js"></script>
+<script src="js/modules/exporting.js"></script>
+  
+<style type="text/css">
+body{
+overflow: hidden;
+
+}
+
+
+.diagram{ /* параметры бокса с диаграммой */
+
+position:  absolute;
+width:600px;
+height:500px;
+left: 15px;
+top: 120px;
+
+}
+ 
+
+.green_box_class{ /* глобальный класс сама карточка */
+position:absolute;
+width:630px;
+height:840px;
+background-color: #F9F9F9;
+
+}
+.head_green_box{ /* зеленая шапка карточки */
+position:absolute;
+height:90px; width:100%;
+background-color: #87de87;
+}
+ 
+ .head_text{ /* простое название на зеленом */
+margin:15px;    
+color: #fff;
+font-size: 26px;
+font-family: Arial, Helvetica, sans-serif;
+ }
+
+.head_text_big{ /* белая подпись на зеленом */
+margin: 40px;
+font-size: 46px;
+font-weight: bold;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+.title{ /* любая крупная надпись главы */
+font-size: 24px;
+color: #666;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+
+
+
+.analiz_box{ /* весь бокс с анализом работы */
+position: absolute;
+left:15px;
+top:640px; 
+}
+
+.string_tr{ /* строка с надписью формой и кнопкой */
+margin-top:6px;
+display: inline-block;
+float: left;
+}
+/* */
+.text_work{ /* текст малнький подписи */
+font-size: 16px;
+color: #666;
+font-family: Arial, Helvetica, sans-serif;
+}
+.input_kasper{ /* белые формы с цифрами */
+height:25px;
+font-size: 18px;
+color:#000;
+background-color: #FFFFFF;
+border-radius: 6px;
+border-style: solid;
+border-width: 1px;
+border-color: #C8C9C0;
+padding: 1px;
+padding-left: 7px;padding-right: 7px;
+margin-left: 5px;
+margin-right: 5px;
+}
+.buttom_green{
+font-size: 16px;    
+height:24px;
+background-color: #87de87;
+ 
+padding-left: 7px;padding-right: 7px;
+border-width: 0px;
+color:#fff;
+border-radius: 6px;
+}
+.buttom_green:hover{
+background-color: #E46B75; 
+}
+
+</style>
+
+</head>
+<body>
+<script type="text/javascript">
+ 
+ 
+var d = function(x){return document.getElementById(x);}//для меня
+ var obj = {};
+ 
+obj.ar = new Array(); // глобальный всего что пришло по дачикам
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+//>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
+function main(){//%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+console.log("start main");
+
+load(); // ajax
+
+
+}
+ //end main%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+ 
+
+
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+function load(){//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// загрузка с сервера данных по по датчикам
+$.ajax({
+
+  type: 'POST',
+  url: 'sborka.php',
+ 
+success: function(data) {
+ 
+if(data!="null"){
+
+var garbage_ar = data.split("$~*~$");
+ 
+
+for(i=0;i<garbage_ar.length;i++){
+obj.ar[i]={};
+obj.ar[i]= JSON.parse(garbage_ar[i]);
+// alert( garbage_ar[i] );
+}//end for 
+ 
+//construct();
+draw_chart(); 
+} //if успешно загружено if
+ 
+}//sucess end
+});
+
+
+}// end load ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+/*
+function construct(){
+var str = "<table border='1'>";
+str+= "<tr>"
+str+="<td>index</td>"  //1
+str+="<td>ID device</td>" //2 
+str+="<td>time_server</td>" //3
+str+="<td>time_device</td>" //4
+str+="<td>t1</td>" //5
+str+="<td>t2</td>" //6
+str+="<td>m1</td>" //7
+str+="<td>s1</td>" //8
+str+="<td>f1</td>" 
+str+="<td>ph1</td>"
+str+="</tr>";
+ 
+for(var i=obj.ar.length-1; i>=0;i--){
+str+= "<tr>";
+str+="<td>"+i+"</td>"; //index 1
+str+="<td>"+obj.ar[i].id+"</td>"; //id 2
+str+="<td>"+obj.ar[i].data+"</td>"; //server time 3
+str+="<td>"+obj.ar[i].times+"</td>"; //times 4
+str+="<td>"+obj.ar[i].t1+"</td>"; //t1 5
+str+="<td>"+obj.ar[i].t2+"</td>"; //t2 6
+str+="<td>"+obj.ar[i].m1+"</td>"; //m1 7
+str+="<td>"+obj.ar[i].s1+"</td>"; //s1 8
+str+="<td>"+obj.ar[i].f1+"</td>"; //f1
+str+="<td>"+obj.ar[i].ph1+"</td>"; //ph1
+
+str+= "</tr>";
+}//end for
+
+
+str+="</table >";
+d("ground").innerHTML+=str;
+}//end construct
+
+*/
+
+ 
+
+var graf = {};
+graf.ar_date = [];
+graf.ar_t1 = [];
+graf.ar_t2 = [];
+graf.ar_s1 = [];
+graf.ar_f1 = [];
+graf.ar_ph1 = [];
+graf.ar_m1 = [];
+function pre_complite(){ // формирование массивов для отображения в диаграмме
+
+
+for(var i=obj.ar.length-1; i>=0;i--){
+graf.ar_date[i] =  obj.ar[i].data;
+graf.ar_t1[i] =  Number(obj.ar[i].t1);
+graf.ar_t2[i] =  Number(obj.ar[i].t2);
+graf.ar_s1[i] =   Number(obj.ar[i].s1);
+graf.ar_ph1[i] =   Number(obj.ar[i].ph1);
+graf.ar_f1[i] =   Number(obj.ar[i].f1);
+
+
+}//glob for
+
+ 
+
+
+}//end pre__commplite
+
+
+ 
+
+
+function draw_chart(){
+
+pre_complite();
+ 
+$(function () {
+    $('#container').highcharts({
+        title: {
+            text: 'Показатели установки 15',
+            x: -20 //center
+        },
+     
+        xAxis: {
+            categories: graf.ar_date
+        },
+        yAxis: {
+            title: {
+                text: 'Показатели'
+            },
+            plotLines: [{
+                value: 0,
+                width: 1,
+                color: '#808080'
+            }]
+        },
+        tooltip: {
+            shared: true,
+                crosshairs: true
+        },
+     
+        series: [{
+            name: 'Температура 1 ',
+            data: graf.ar_t1 
+        }, {
+                    name: 'Температура 2 ',
+            data: graf.ar_t2 
+        }, {
+            name: 'Влажность',
+            data: graf.ar_f1
+        }, {
+            name: 'Кислотность',
+            data:  graf.ar_ph1
+        }, {
+            name: 'Освещение',
+            data:  graf.ar_s1
+        }]
+    });
+});
+
+}//end draw charts 
+
+
+/*
+//сортировка по номеру типа types ------------------------------------
+function sort_buble(arr){ // сортировка для отображения в списке и при печати
+ var m = arr;
+ var count = m.length-1;
+for (var i = 0; i < count; i++) 
+     for (var j = 0; j < count-i; j++)
+        if (m[j].types> m[j+1].types) {
+           var max = m[j];
+           m[j] = m[j+1];
+           m[j+1] = max;
+        }
+return m ;
+}
+*/
+//---------------------------------------------------------------
+$(document).ready(function () {
+main(); // нормализуем элементы по высоте и ширине
+});
+/*
+$(window).resize(function(){
+});
+*/
+
+$(document).mousemove(function(e){
+    var X = e.pageX; // положения по оси X
+    var Y = e.pageY; // положения по оси Y
+    console.log("X: " + X + " Y: " + Y); // вывод результата в консоль
+    document.title = "X: " + X + " Y: " + Y;
+});    
+// fly-frog-fly@yandex.ru
+</script>
+ 
+<!--global container -->
+<div id="green_box_2" class="green_box_class">
+
+<div id="header_green_box" class="head_green_box">
+    <div id="text_heder_green" class="head_text">График работы установки 
+        <span class="head_text_big">15</span>
+    </div><!--header -->
+</div><!--green box head-->
+
+<div id="container" class="diagram"></div><!--diagram -->
+
+<button class="buttom_green">обнулить график</button>
+
+
+<div id="analiz_work" class="analiz_box">
+    <div class="title">Анализ работы</div>
+        <div class="string_tr"><!--nasos --> 
+            <span class="text_work">насосы выробатка час.:</span>
+            <span class="input_kasper">145</span>
+            <button class="buttom_green">обнулить</button>
+        </div><!--nasos -->
+
+        <div class="string_tr"><!-- лампа --> 
+            <span class="text_work">лампы выробатка час.:</span>
+            <span class="input_kasper">243</span>
+            <button class="buttom_green">обнулить</button>
+        </div><!--лампа -->    
+
+        <div class="string_tr"><!-- вентиляция --> 
+            <span class="text_work">вентиляция выробатка час.:</span>
+            <span class="input_kasper">319</span>
+            <button class="buttom_green">обнулить</button>
+        </div><!--вентиляция -->    
+
+        <div class="string_tr"><!-- отопление --> 
+            <span class="text_work">отопление выробатка час.:</span>
+            <span class="input_kasper">221</span>
+            <button class="buttom_green">обнулить</button>
+        </div><!--отопление --> 
+
+</div> <!--analiz_work -->
+</div><!--green_box -->
+<!--global container -->
+</body>
+</html>
+ 
