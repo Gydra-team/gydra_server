@@ -1,0 +1,563 @@
+ 
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    
+    <title>Монитор ресурсов</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+<script src="js/jquery.js" type="text/javascript"> </script>
+ 
+ 
+<link rel="stylesheet" href="css/all.css"> 
+<style type="text/css">
+
+body{
+ 
+
+}
+
+.logo_system{
+width:120px;
+margin-top: 5px;
+
+
+}
+
+
+.green_box_class{ /* глобальный класс сама карточка */
+position:absolute;
+width:520px;
+ 
+background-color: #F9F9F9;
+padding-bottom: 
+}
+
+.green_box_diagrame{ /* глобальный класс сама карточка */
+float:left;
+width:630px;
+display:none;
+
+}
+
+
+.line{
+background-color: #fff;
+height:4px;
+width:150px;
+margin-top:6px;
+margin-bottom: 6px;
+}
+ 
+.head_green_box{ /* зеленая шапка карточки */
+ 
+height:60px; width:100%;
+background-color: #87de87;
+display:inline-block;
+float:left;
+ 
+}
+ 
+ .head_text{ /* простое название на зеленом */
+margin:15px;    
+color: #fff;
+font-size: 26px;
+font-family: Arial, Helvetica, sans-serif;
+ }
+
+.head_text_big{ /* белая подпись на зеленом */
+margin: 40px;
+font-size: 46px;
+font-weight: bold;
+font-family: Arial, Helvetica, sans-serif;
+}
+
+.head_text_big_right{ /* белая подпись на зеленом */
+
+position:absolute;
+right:50px;
+top:0px;
+margin: 20px;
+font-size: 86px;
+ 
+font-family: Arial, Helvetica, sans-serif;
+color:#fff;
+}
+
+.header_small_text{
+color: #fff;
+font-size: 16px;
+font-family: Arial, Helvetica, sans-serif;
+font-style: italic;
+}
+
+
+
+.title{ /* любая крупная надпись главы */
+font-size: 22px;
+color: #666;
+font-family: Arial, Helvetica, sans-serif;
+font-style: bold;
+}
+
+.diagram{ /* параметры бокса с диаграммой */
+
+ 
+display:inline-block;
+float:left; 
+width:600px;
+height:500px;
+margin-bottom: 15px; 
+
+}
+
+
+.analiz_box{ /* весь бокс с анализом работы */
+position: absolute;
+left:15px;
+top:640px; 
+}
+
+.string_tr{ /* строка с надписью формой и кнопкой */
+margin-top:12px;
+display: inline-block;
+ 
+}
+/* */
+.text_work{ /* текст малнький подписи */
+font-size: 16px;
+color: #666;
+font-family: Arial, Helvetica, sans-serif;
+}
+.input_kasper{ /* белые формы с цифрами */
+display:inline-block;
+height:20px;
+font-size: 16px;
+color:#000;
+background-color: #FFFFFF;
+border-radius: 6px;
+border-style: solid;
+border-width: 1px;
+border-color: #E4E4E0;
+padding:2px; 
+padding-left: 7px;padding-right: 7px;
+font-family: Arial, Helvetica, sans-serif;
+margin-left: 5px;
+margin-right: 5px;
+text-align: center;
+}
+.buttom_green{
+font-size: 16px;    
+height:24px;
+background-color: #87de87;
+ 
+padding-left: 7px;padding-right: 7px;
+border-width: 0px;
+color:#fff;
+border-radius: 6px;
+}
+ 
+/* ------------------------------------------------------------------- */
+.statistic_box{
+position: absolute;
+left:15px;
+top:160px; 
+}
+.switch{ /* переключатель */
+height:23px;
+margin-bottom: -6px;
+margin-left: 5px;
+margin-right: 5px;
+}
+ 
+.selected{
+
+height:24px;
+font-size: 16px;
+color:#000;
+background-color: #FFFFFF;
+border-radius: 6px;
+border-style: solid;
+border-width: 1px;
+border-color: #E4E4E0;
+padding-left: 22px;padding-right: 44px;
+font-family: Arial, Helvetica, sans-serif;
+margin-left: 5px;
+margin-right: 5px;
+ 
+background: transparent url("img/switch.png") no-repeat right center;  
+background-color: #fff; 
+-webkit-appearance: none;
+-moz-appearance: none;
+appearance: none;
+}
+
+ .select_img{ /* белые формы с цифрами */
+ 
+height:22px;
+margin-bottom: -5px;
+margin-left: -35px;
+
+}
+.gray_line{
+display:inline-block;
+float:left;
+margin-left: 15px;
+width:600px;
+height:2px;
+background-color: #DBDCD6;
+
+
+
+
+}
+.statistic_detail_box{
+position:absolute;
+top:330px;
+left:15px;
+}
+
+
+.big_input_kasper{ /* белые формы с цифрами */
+ 
+font-size: 36px;
+color:#000;
+background-color: #FFFFFF;
+border-radius: 6px;
+border-style: solid;
+border-width: 1px;
+border-color: #E4E4E0;
+padding:2px; 
+padding-left: 2px;padding-right: 2px;
+font-family: Arial, Helvetica, sans-serif;
+margin-left: 5px;
+margin-right: 5px;
+margin-bottom: 210px; }
+
+.mini_text{
+
+font-size: 14px;
+font-family: Arial, Helvetica, sans-serif;
+color: #666;
+ 
+}
+.vertical_line{
+display:inline-block;
+ 
+height:50px;
+width:2px;
+background-color: #CCCDC5;
+margin-right: 10px;
+margin-left: 10px;
+
+}
+
+.buttom_green_big{
+font-size: 16px;    
+height:44px;
+background-color: #87de87;
+padding-left: 11px;padding-right: 11px;
+border-width: 0px;
+color:#fff;
+border-radius: 6px;
+margin-left: 10px;
+}
+  .table_sensor td {
+padding-bottom: 15px;
+ 
+   }
+
+ 
+
+.lamp_box{
+width:28px;
+height:28px;
+background-color:#87de87;
+border-style: solid;
+border-width: 1px;
+border-color: #E4E4E0;
+padding-bottom: -10px;
+}
+
+
+  .lamp_table td{
+text-align: center;
+font-size: 12px;
+color:#666;
+font-family: Arial, Helvetica, sans-serif;
+height:10px;
+border: none; /* Убираем линию снизу */
+padding-top: 10px;
+ 
+}
+ 
+
+.nasos_box{
+
+position:absolute;
+top:880px;
+left:15px;
+
+
+} 
+
+
+.specii_box{
+
+display:inline-block;
+float:left;
+margin:15px;
+ 
+}
+
+
+.range_box_class{
+background-color: #F9F9F9;
+border-style: solid;
+z-index: 101;
+visibility: hidden;
+
+}
+
+.video_div{
+width:482px;
+height:300px;
+ 
+}
+
+
+/* ------------ */
+.string_tr_admin{ /* строка с надписью формой и кнопкой */
+margin-top:12px;
+display: inline-block;
+margin-bottom: 10px; 
+padding:10px;
+ width:450px;
+border-style: solid;
+border-width:4px;
+border-color: #87de87;
+} 
+
+.buttom_green_delite{
+font-size: 16px;    
+height:24px;
+background-color: #87de87;
+ 
+padding-left: 7px;padding-right: 7px;
+border-width: 0px;
+color:#fff;
+border-radius: 6px;
+
+margin-top:10px;
+}
+
+.input_text{ /* белые формы с цифрами */
+display:inline-block;
+height:20px;
+font-size: 16px;
+color:#000;
+background-color: #FFFFFF;
+border-radius: 6px;
+border-style: solid;
+border-width: 1px;
+border-color: #E4E4E0;
+padding:2px; 
+padding-left: 7px;padding-right: 7px;
+font-family: Arial, Helvetica, sans-serif;
+margin: 5px;
+ 
+text-align: center;
+}
+
+.add_form_class{
+ 
+margin-top:12px;
+display: none;
+margin-bottom: 10px; 
+padding:10px;
+ width:220px;
+border-style: solid;
+border-width:4px;
+border-color: #87de87;
+
+}
+
+</style>
+
+</head>
+<body>
+<script type="text/javascript">
+ 
+ 
+var d = function(x){return document.getElementById(x);}//для меня
+var obj = {}; // объект после разбора JSON строки
+ 
+var all_admin = [];
+all_admin[0] = {};
+
+all_admin[0].login ="far";
+all_admin[0].pass ="12345";
+all_admin[0].fio ="Александр мазимов";
+
+all_admin[1] = {};
+all_admin[1].login ="dar";
+all_admin[1].pass ="23423423";
+all_admin[1].fio ="Ирина Каделюк";
+
+all_admin[2] = {};
+all_admin[2].login ="dsdfa";
+all_admin[2].pass ="23422";
+all_admin[2].fio ="Ирина Мываываыв";
+
+//alert(JSON.stringify(all_admin));
+ 
+ function main(){
+
+destroy();// разбор JSON строки из hidden поля 
+// в ней содержатся списки администраторов
+ }///end main
+
+
+function destroy(){
+   
+var st = d("data_st").value;
+obj = JSON.parse(st);
+build_list(); 
+}//destroy
+
+function build_list(){
+var srt = "";
+for(var i=0; i<obj.length; i++){
+
+srt+='<div id="admin_'+i+'" class="string_tr_admin">';
+srt+='<span class="text_work">логин: </span>';
+srt+='<span class="input_kasper">'+obj[i].login+'</span>';
+srt+='<br>';
+srt+='<span class="text_work">пароль: </span>';
+srt+='<span class="input_kasper">'+obj[i].pass+'</span>';
+srt+='<br>';
+srt+='<span class="text_work">ФИО: </span>';
+srt+='<span class="input_kasper">'+obj[i].fio+'</span>';
+srt+='<br>';
+srt+='<button onclick="delite_admin(\''+obj[i].login+'\',\'admin_'+i+'\')" class="buttom_green_delite">удалить</button>';
+srt+='<br></div> ';
+
+}//end for
+
+d("list_box").innerHTML+=srt;
+//d("green_box_2").innerHTML+=srt;
+}//end build_list
+
+
+function add_admin(){ // клик по кнопке сохранить на форме ввода данных нового админа
+var str_login = d("login_form").value;
+var str_pass = d("pass_form").value;
+var str_fio = d("fio_form").value;
+//вывод красных надписей если не ввели данные
+var s = 0;
+if(str_fio==""||str_fio=="ФИО"){d("fio_form").value = "введите ФИО"; d("fio_form").style.color = "#F41010"; s=1;}
+if(str_login==""||str_login=="логин"){d("login_form").value = "введите логин"; d("login_form").style.color = "#F41010"; s=1;}
+if(str_pass==""||str_pass=="пароль"){d("pass_form").value = "введите пароль"; d("pass_form").style.color = "#F41010"; s=1;}
+
+if(s==0){// флаг что есть коректные данные
+hide_form_add(); // скрыть форму добавления   
+// отправить данные на сервер
+var data_ = 'flag=add&';
+data_ += 'login='+str_login+'&'; 
+data_ += 'fio='+str_fio+'&'; 
+data_ += 'pass='+str_pass; 
+ 
+$.ajax({
+  type: 'POST',
+  url: 'edit_admin.php',
+  data: data_,
+success: function(data){
+// добавить карточку в список если все прошло успешо
+if(data=="ok"){// прошло успешно добавление
+alert("Добавлено успешно");
+
+// перезагрузить страницу 
+
+}else{
+alert("Добавление невозможно");
+}//data=ok
+ 
+  }
+});
+
+}// s на дурака
+}//end add_admin
+
+
+
+function show_form_add(){
+d("add_form").style.display = "inline-block"; 
+}//end show_form_add
+
+function hide_form_add(){
+d("add_form").style.display = "none"; 
+}//end show_form_add
+
+
+
+function delite_admin(mark,id_box){
+ 
+var data_ = 'flag=delite&';
+data_ += 'login='+mark;
+ 
+$.ajax({
+  type: 'POST',
+  url: 'edit_admin.php',
+  data: data_,
+success: function(data){
+if(data=="ok"){
+    alert("Успешно удален");
+    // перезагрузить страницу
+}else{
+   alert("Удаление невозможно"); 
+}// if
+}//sucess
+});
+}//end delite admin
+
+
+$(document).ready(function () {
+main();
+}//onload
+);
+</script>
+ 
+<!--global container -->
+<div id="green_box_2" class="green_box_class">
+
+<input id="data_st" type="hidden" value='[{"login":"far","pass":"12345","fio":"Александр мазимов"},{"login":"dar","pass":"23423423","fio":"Ирина Каделюк"},{"login":"dsdfa","pass":"23422","fio":"Ирина Мываываыв"}]' />
+<div id="header_green_box" class="head_green_box">
+<div  class="head_text">Панель управления администраторами
+</div><!--header -->
+</div><!--green box head-->
+<button onclick="show_form_add()" class="buttom_green_delite">добавить администратора</button>
+<br>
+ <div id="add_form" class="add_form_class">
+ <input id="fio_form"  type="text" class="input_text"  value="ФИО">  <br>  
+ <input id="login_form" type="text" class="input_text" value="логин"> <br>
+  <input id="pass_form" type="text" class="input_text" value="пароль">  <br>     
+<button onclick="add_admin()" class="buttom_green_delite">сохранить</button>
+<button onclick="hide_form_add()" class="buttom_green_delite">отмена</button>
+ </div>
+
+<div id="list_box"></div>
+
+
+
+
+
+ 
+ 
+ 
+
+ 
+</div><!--green_box -->
+<!--global container -->
+</body>
+</html>
+ 
